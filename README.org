@@ -1,0 +1,19 @@
+* lll                                                                 :TOC_4:
+  - [[#introduction][Introduction]]
+
+** Introduction
+
+This is a simple repo to help with understanding low level functionality of a Linux system.
+
+The file [[./kernel/kvm-nomod.config]] contains a somewhat stripped down kernel configuration, very suitable for running in KVM (can still be stripped down quite a bit further). Use it to build a kernel (latest LTS is a good choice).
+
+Create the directory =rootfs=, copy bzImage in there, and create init. Failing to do so will have the kernel crash, helpfully telling you where you should put init:
+
+#+CAPTION: kernel panicing with init not found
+[[./pic/no-init.png]]
+
+[[./init/simple-go-init]] contains a minimalistic init, build it with build.sh to get a statically linked binary, and use it as your init.
+
+[[./run.sh]] can be used to start everything - it'll run the kernel via a virtual serial console, so it'll run in the current terminal, without opening extra windows. To avoid image building it'll use the rootfs directory as root filesystem via p9fs. To control qemu/kvm press C-a c to enter qemu/kvm shell, C-a x to quit.
+
+This is just meant as a starting point for whoever is interested in learning: Pull requests with additional documentation, additional init variants, simple shells or whatever else is useful to understand low level Linux functionality is welcome.
